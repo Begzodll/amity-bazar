@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
+import Confetti from "react-confetti";
 export default function App() {
     const questions = [
         [
@@ -241,13 +242,14 @@ export default function App() {
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
     let arr = []
+
     arr.push(questions[Math.floor(Math.random() * 5)])
+
 
     const handleAnswerOptionClick = (isCorrect) => {
         if (isCorrect) {
             setScore(score + 1);
         }
-
         const nextQuestion = currentQuestion + 1;
         if (nextQuestion < arr[0].length) {
             setCurrentQuestion(nextQuestion);
@@ -255,13 +257,19 @@ export default function App() {
             setShowScore(true);
         }
     };
+
     return (
         <>
-            <div className={'body'}>
+            <div className={'body overflow-hidden'}>
                 <div className={'block-img'}/>
                 <div className='app'>
                     {showScore ? (
                         <div className='score-section'>
+                            <Confetti
+                                width={window.innerWidth-20}
+                                height={window.innerHeight || 300}
+                                numberOfPieces={800}
+                            />
                             You scored {score} out of {arr[0].length}
                         </div>
                     ) : (
@@ -273,11 +281,11 @@ export default function App() {
                                 <div className='question-text'>{arr[0][currentQuestion].questionText}</div>
                             </div>
                             <div className='answer-section'>
-                                {arr[0][currentQuestion].answerOptions.map((answerOption) => (
-                                    <>
+                                {arr[0][currentQuestion].answerOptions.map((answerOption,index) => (
+                                    <div key={index}>
                                         <button style={{padding:'5px 10px'}} className={'header-button'}
                                                 onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>{answerOption.answerText}</button> <br/>
-                                    </>
+                                    </div>
                                 ))}
                             </div>
                         </>
