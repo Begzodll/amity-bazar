@@ -273,11 +273,11 @@ export default function App() {
                                 <div className='question-text'>{arr[0][currentQuestion].questionText}</div>
                             </div>
                             <div className='answer-section'>
-                                {arr[0][currentQuestion].answerOptions.map((answerOption) => (
-                                    <>
+                                {arr[0][currentQuestion].answerOptions.map((answerOption,index) => (
+                                    <div key={index}>
                                         <button style={{padding:'5px 10px'}} className={'header-button'}
                                                 onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>{answerOption.answerText}</button> <br/>
-                                    </>
+                                    </div>
                                 ))}
                             </div>
                         </>
